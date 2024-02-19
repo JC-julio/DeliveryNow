@@ -9,5 +9,5 @@ test("Deve testar um cpf válido", async() => {
 
 test("Deve invalidar um CPF falso", async() => {
     const validInput = '051.405.741.99'
-	expect(() => new CPFValidator(validInput)).toThrow(new Error("Email inválido"));
+	expect(() => new CPFValidator(validInput)).toThrow(new Error("CPF inválido"));
 },15000)

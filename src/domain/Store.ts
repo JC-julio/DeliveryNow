@@ -4,13 +4,13 @@ export default class Store {
     constructor(
         readonly name: string, readonly street: string, readonly number: string, readonly neighborhood: string,
         readonly CEP: string, readonly description: string, readonly cnpj: string, readonly localization: string) {}
-    static create(props: storeDto) {
-        if(!props)
+    static create(storeDto) {
+        if(!storeDto)
             throw new Error("Dados faltantes")
-        if(new CNPJValidator(props.cnpj))
+        if(new CNPJValidator(storeDto.cnpj))
         return new Store(
-            props.name, props.street, props.number, props.neighborhood,
-            props.CEP, props.description, props.cnpj, props.localization,
+            storeDto.name, storeDto.street, storeDto.number, storeDto.neighborhood,
+            storeDto.CEP, storeDto.description, storeDto.cnpj, storeDto.localization,
         )
     }
 }
