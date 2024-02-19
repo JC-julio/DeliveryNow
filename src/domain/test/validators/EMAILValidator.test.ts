@@ -1,4 +1,4 @@
-import EMAILValidator from "../../EMAILValidator"
+import EMAILValidator from "../../validators/EMAILValidator"
 
 
 test("Deve testar um email válido", async() => {

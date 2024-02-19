@@ -1,4 +1,4 @@
-import CNPJValidator from "../../CNPJValidator"
+import CNPJValidator from "../../validators/CNPJValidator"
 
 
 test("Deve testar um CNPJ válido", async() => {
