@@ -1,8 +1,15 @@
-export default class EMAILValidator {
-    constructor(readonly email:string) {}
-    static validaEMAIL(email: string): boolean {
-        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-        return regex.test(email);
-    }
-}
+import * as EmailValidator from 'email-validator';
 
+export default class EMAILValidator {
+    value: string
+  constructor(value: string) {
+    if (!this.isValid(value)) {
+      throw new Error("Email inválido");
+    }
+    this.value = value
+  }
+
+  private isValid(value: string): boolean {
+    return EmailValidator.validate(value);
+  }
+}
