@@ -5,13 +5,13 @@ export default class DeliveryMan {
     document: CPFValidator
     Email: EMAILValidator
     constructor(
-        readonly name: string, readonly CPF: string, readonly email: string,
+        readonly name: string, readonly password: string, readonly CPF: string, readonly email: string,
         readonly vehicle: string, readonly vehicleColor: string, readonly plate: string) {
         this.document = new CPFValidator(CPF)
         this.Email = new EMAILValidator(email)
     }
 
-    static create(name: string, CPF: string, email: string, vehicle: string, vehicleColor: string, plate: string) {
-        return new DeliveryMan(name, CPF, email, vehicle, vehicleColor, plate)
+    static create(name: string, password:string, CPF: string, email: string, vehicle: string, vehicleColor: string, plate: string) {
+        return new DeliveryMan(name, password, CPF, email, vehicle, vehicleColor, plate)
     }   
 }

@@ -1,27 +1,19 @@
 import CNPJValidator from "./validators/CNPJValidator";
+import EMAILValidator from "./validators/EMAILValidator";
 
 export default class Store {
+    document: CNPJValidator
+    Email: EMAILValidator
     constructor(
         readonly name: string, readonly street: string, readonly number: string, readonly neighborhood: string,
-        readonly CEP: string, readonly description: string, readonly cnpj: string, readonly localization: string) {}
-    static create(storeDto) {
-        if(!storeDto)
-            throw new Error("Dados faltantes")
-        if(new CNPJValidator(storeDto.cnpj))
+        readonly CEP: string, readonly description: string, readonly cnpj: string, readonly localization: string,
+        readonly email: string) {
+            this.document = new CNPJValidator(cnpj)
+            this.Email = new EMAILValidator(email)
+        }
+    static create(name: string, street: string, number: string, neighborhood: string, CEP: string, description: string, cnpj: string, localization: string, email) {
         return new Store(
-            storeDto.name, storeDto.street, storeDto.number, storeDto.neighborhood,
-            storeDto.CEP, storeDto.description, storeDto.cnpj, storeDto.localization,
+            name, street, number, neighborhood, CEP, description, cnpj, localization, email
         )
     }
-}
-
-export type storeDto = {
-    name: string;
-    street: string;
-    number: string;
-    neighborhood: string;
-    CEP: string;
-    description:string;
-    cnpj: string;
-    localization: string;
 }
