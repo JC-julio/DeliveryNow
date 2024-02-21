@@ -1,8 +1,9 @@
 import DeliveryManRepositoryInterface from "../../repository/DeliveryManRepositoryInterface";
+import { Output } from "../../repository/DeliveryManRepositoryInterface";
 
 export default class GetAllDeliveryMans {
     constructor(readonly repo: DeliveryManRepositoryInterface) {}
-    async execute(): Promise<Output> {
+    async execute(): Promise<Output[]> {
         const deliveryMans = (await this.repo.GetAll()).map((DeliveryMan) => {
         return {
             name: DeliveryMan.name,
@@ -17,12 +18,3 @@ export default class GetAllDeliveryMans {
 }
 
 export type Input = string
-
-export type Output = {
-    name: string,
-    CPF: string,
-    email: string,
-    vehicle: string,
-    vehicleColor: string,
-    plate: string,
-}[];

@@ -1,5 +1,6 @@
 import DeliveryManRepositoryInterface from "../../repository/DeliveryManRepositoryInterface";
 import DeliveryMan from "../../../domain/DeliveryMan";
+import { Output } from "../../repository/DeliveryManRepositoryInterface";
 
 export default class CreateDeliveryMan {
     constructor(readonly repo: DeliveryManRepositoryInterface) {}
@@ -18,15 +19,6 @@ export default class CreateDeliveryMan {
 export type Input = {
     name: string,
     password: string,
-    CPF: string,
-    email: string,
-    vehicle: string,
-    vehicleColor: string,
-    plate: string,
-}
-
-export type Output = {
-    name: string, 
     CPF: string,
     email: string,
     vehicle: string,
