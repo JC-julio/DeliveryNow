@@ -22,6 +22,8 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
     }
     async GetOne(id: string): Promise<Output> {
         const getOneStore = await this.model.findById(id)
+        if(!getOneStore)
+            throw new Error("nenhum usuário encontrado")
         const ObjectReturn = {
             name: getOneStore.name,
             id: getOneStore.id,

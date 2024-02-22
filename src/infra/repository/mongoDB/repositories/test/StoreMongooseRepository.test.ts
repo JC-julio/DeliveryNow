@@ -64,4 +64,10 @@ test("deve testar o getAll da entidade de comércio", async() => {
     expect(getStore2.id).toBe(store1.id)
 }, 15000)
 
-t
+test.only("deve testar o delete da entidade de comércio", async() => {
+    await mongoose.connect(process.env.connectionString);
+    const store = await postStore()
+    const repo = new StoreMongooseRepository()
+    expect(async()=> await repo.delete(store.id)).toBeTruthy()
+    // expect(async() => await repo.GetOne(store.id)).toThrow(new Error("nenhum usuário encontrado"))
+}, 15000)
