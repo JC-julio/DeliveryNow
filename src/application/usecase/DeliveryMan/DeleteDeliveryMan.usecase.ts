@@ -3,10 +3,10 @@ import DeliveryManRepositoryInterface from "../../repository/DeliveryManReposito
 export default class DeleteDeliveryMan {
     constructor(readonly repo: DeliveryManRepositoryInterface) {
     }
-    async execute(email: Input): Promise<void> {
-        if (!await this.repo.GetOne(email))
-            throw new Error("Email não encotrados")
-        await this.repo.delete(email)
+    async execute(id: Input): Promise<void> {
+        if (!await this.repo.GetOne(id))
+            throw new Error("usuário não encontrado")
+        await this.repo.delete(id)
     }
 }
 

@@ -4,8 +4,8 @@ import { Output } from "../../repository/StoreRepositoryInterface";
 
 export default class GetOneStore {
     constructor(readonly repo: StoreRepositoryInterface) {}
-    async execute(email: Input): Promise<Output> {
-    const deliveryMan = await this.repo.GetOne(email)
+    async execute(id: Input): Promise<Output> {
+    const deliveryMan = await this.repo.GetOne(id)
     return deliveryMan
     }
 }

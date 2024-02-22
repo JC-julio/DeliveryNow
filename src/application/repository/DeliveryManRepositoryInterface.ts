@@ -1,10 +1,11 @@
 import DeliveryMan from "src/domain/DeliveryMan"
 
 export default interface DeliveryManRepositoryInterface{
-    GetOne(email: string): Promise<Output>
+    GetOne(id: string): Promise<Output>
     save(deliveryMan: DeliveryMan): Promise<Output>
     GetAll(): Promise<Array<Output>>
-    delete(email: string): Promise<void>
+    delete(id: string): Promise<void>
+    GetByEmail(email: string): Promise<any>
 }
 
 export type Output = {

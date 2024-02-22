@@ -3,8 +3,8 @@ import { Output } from "../../repository/DeliveryManRepositoryInterface";
 
 export default class GetOneDeliveryMan {
     constructor(readonly repo: DeliveryManRepositoryInterface) {}
-    async execute(email: Input): Promise<Output>{
-    const deliveryMan = await this.repo.GetOne(email)
+    async execute(id: Input): Promise<Output>{
+    const deliveryMan = await this.repo.GetOne(id)
     return deliveryMan
     }
 }

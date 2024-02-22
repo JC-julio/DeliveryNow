@@ -1,15 +1,20 @@
-import LoginRepositoryInterface from "../../repository/LoginRepositoryInterface"
-import StoreRepositoryInterface from "../../repository/StoreRepositoryInterface"
+import StoreRepositoryInterface, { Output } from "../../repository/StoreRepositoryInterface"
 import Store from "../../../domain/Store"
 
-export default class CreateStore {
+export default class LoginStore {
     constructor(
-        readonly repoLogin: LoginRepositoryInterface,
         readonly repoStore: StoreRepositoryInterface) {}
     async execute(props: Input): Promise<any> {
-        const getStore = await this.repoStore.GetOne(props.email)
+        const getStore = await this.repoStore.GetbyEmail(props.email)
         if(!getStore)
-            throw new Error("Email já cadastrado")
+            throw new Error("nenhum usuário encontrado")
+        const store = Store.create(
+            getStore.name, getStore.password, getStore.street,
+            getStore.number, getStore.neighborhood, getStore.CEP,
+            getStore.description, getStore.cnpj, getStore.localization,
+            getStore.email)
+        if(!await store.validPassword(getStore.password))
+            throw new Error("Senha incorreta!")
         const token = await Store.generateToken(getStore.id)
         const ObjectReturn = {
             name: getStore.name,

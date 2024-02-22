@@ -1,8 +1,9 @@
 export default interface StoreRepositoryInterface{
     save(store: Output): Promise<Output>
-    GetOne(email: string): Promise<Output>
+    GetOne(id: string): Promise<Output>
     GetAll(): Promise<Array<Output>>
-    delete(email: string): Promise<void>
+    delete(id: string): Promise<void>
+    GetbyEmail(email: string): Promise<any>
 }
 
 export type Output = {
