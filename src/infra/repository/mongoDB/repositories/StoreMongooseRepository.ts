@@ -20,8 +20,21 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             email: store.email,
         })
     }
-    async GetOne(id: string): Promise<any> {
-        return this.model.findById(id)
+    async GetOne(id: string): Promise<Output> {
+        const getOneStore = await this.model.findById(id)
+        const ObjectReturn = {
+            name: getOneStore.name,
+            id: getOneStore.id,
+            street: getOneStore.street,
+            number: getOneStore.number,
+            neighborhood: getOneStore.neighborhood,
+            CEP: getOneStore.CEP,
+            description: getOneStore.description,
+            cnpj: getOneStore.cnpj,
+            localization: getOneStore.localization,
+            email: getOneStore.email,
+        }
+        return ObjectReturn
     }
 
     async GetAll(): Promise<Array<Output>> {
