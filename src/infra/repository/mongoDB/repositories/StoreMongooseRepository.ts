@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import StoreRepositoryInterface, {Output} from "../../../../application/repository/StoreRepositoryInterface";
+import StoreRepositoryInterface from "../../../../application/repository/StoreRepositoryInterface";
 import Store from "../../../../domain/Store";
 import storeModel from "../models/mongooseModelStore";
 
@@ -7,7 +7,7 @@ import storeModel from "../models/mongooseModelStore";
 export default class StoreMongooseRepository implements StoreRepositoryInterface {
     model = storeModel
     async save(store: Store): Promise<any> {
-        return await this.model.create({
+        const postStore = await this.model.create({
             name: store.name,
             password: store.password,
             street: store.street,
@@ -19,8 +19,14 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             localization: store.localization,
             email: store.email,
         })
+        const post = {
+            ...postStore['_doc'],
+            id: postStore.id,
+            _id: undefined
+        }
+        return post
     }
-    async GetOne(id: string): Promise<Output> {
+    async GetOne(id: string): Promise<Store> {
         const getOneStore = await this.model.findById(id)
         if(!getOneStore)
             throw new Error("nenhum usuário encontrado")
@@ -39,7 +45,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         return ObjectReturn
     }
 
-    async GetAll(): Promise<Array<Output>> {
+    async GetAll(): Promise<Array<Store>> {
         const stores = (await this.model.find())
         if(!stores)
             throw new Error("nenhum usuário retornado")
@@ -63,6 +69,22 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
     }
 
     async GetbyEmail(email: string): Promise<any> {
-        return await this.model.findOne({email: email})
+        const getStore = await this.model.findOne({email: email})
+        if(!getStore){
+            return "nenhum usuário encontrado"
+        }
+        const post = {
+            name: getStore.name,
+            id: getStore.id,
+            street: getStore.street,
+            number: getStore.number,
+            neighborhood: getStore.neighborhood,
+            CEP: getStore.CEP,
+            description: getStore.description,
+            cnpj: getStore.cnpj,
+            localization: getStore.localization,
+            email: getStore.email,
+        }
+        return post
     }
 }

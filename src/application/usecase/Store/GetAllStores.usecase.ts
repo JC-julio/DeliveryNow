@@ -1,6 +1,4 @@
 import StoreRepositoryInterface from "../../repository/StoreRepositoryInterface";
-import { Output } from "../../repository/StoreRepositoryInterface";
-
 
 export default class GetAllStores {
     constructor(readonly repo: StoreRepositoryInterface) {}
@@ -23,3 +21,17 @@ export default class GetAllStores {
 }
 
 export type Input = string
+
+
+export type Output = {
+    id: string,
+    name: string,
+    street: string,
+    number: string,
+    neighborhood: string,
+    CEP: string,
+    description: string,
+    cnpj: string,
+    localization: string,
+    email: string,
+}

@@ -10,3 +10,16 @@ export default class GetbyEmailStore {
 }
 
 export type Input = string
+
+export type Output = {
+    id: string,
+    name: string,
+    street: string,
+    number: string,
+    neighborhood: string,
+    CEP: string,
+    description: string,
+    cnpj: string,
+    localization: string,
+    email: string,
+}

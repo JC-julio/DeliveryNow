@@ -1,20 +1,10 @@
+import Store from "../../domain/Store"
+
 export default interface StoreRepositoryInterface{
-    save(store: Output): Promise<Output>
-    GetOne(id: string): Promise<Output>
-    GetAll(): Promise<Array<Output>>
+    save(store: Omit<Store, 'id'>): Promise<Store>
+    GetOne(id: string): Promise<Store>
+    GetAll(): Promise<Array<Store>>
     delete(id: string): Promise<void>
     GetbyEmail(email: string): Promise<any>
 }
 
-export type Output = {
-    id?: string,
-    name: string,
-    street: string,
-    number: string,
-    neighborhood: string,
-    CEP: string,
-    description: string,
-    cnpj: string,
-    localization: string,
-    email: string,
-}

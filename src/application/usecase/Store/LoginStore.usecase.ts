@@ -1,5 +1,6 @@
-import StoreRepositoryInterface, { Output } from "../../repository/StoreRepositoryInterface"
+import StoreRepositoryInterface from "../../repository/StoreRepositoryInterface"
 import Store from "../../../domain/Store"
+import * as bcrypt from 'bcrypt';
 
 export default class LoginStore {
     constructor(
@@ -8,12 +9,12 @@ export default class LoginStore {
         const getStore = await this.repoStore.GetbyEmail(props.email)
         if(!getStore)
             throw new Error("nenhum usuário encontrado")
-        const store = Store.create(
+        const store = new Store(
             getStore.name, getStore.password, getStore.street,
             getStore.number, getStore.neighborhood, getStore.CEP,
             getStore.description, getStore.cnpj, getStore.localization,
             getStore.email)
-        if(!await store.validPassword(getStore.password))
+        if(await bcrypt.compare(store.password, props.password))
             throw new Error("Senha incorreta!")
         const token = await Store.generateToken(getStore.id)
         const ObjectReturn = {

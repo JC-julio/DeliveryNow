@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import StoreMongooseRepository from '../StoreMongooseRepository';
 import Store from '../../../../../domain/Store';
 import { config } from 'dotenv';
+import * as faker from 'faker'
 config();
 
 async function postStore() {
@@ -15,9 +16,9 @@ async function postStore() {
         description: 'comercio de bebidads',
         cnpj: '12.345.678/0001-95',
         localization: 'não sei',
-        email: 'seuze@gmail.com',
+        email: faker.internet.email(),
     }
-    const storeSave = Store.create(store.name, store.password, store.street, store.number, store.neighborhood, store.CEP, store.description, store.cnpj, store.localization, store.email)
+    const storeSave = new Store(store.name, store.street, store.number, store.neighborhood, store.CEP, store.description, store.cnpj, store.localization, store.email, store.password)
     const repo = new StoreMongooseRepository()
     const post = await repo.save(storeSave)
     return post
@@ -35,9 +36,9 @@ test("Deve testar o post da entidade de Comércido dentro da API", async() => {
         description: 'comercio de bebidads',
         cnpj: '12.345.678/0001-95',
         localization: 'não sei',
-        email: 'seuze@gmail.com',
+        email: faker.internet.email(),
     }
-    const storeSave = Store.create(store.name, store.password, store.street, store.number, store.neighborhood, store.CEP, store.description, store.cnpj, store.localization, store.email)
+    const storeSave = new Store(store.name, store.street, store.number, store.neighborhood, store.CEP, store.description, store.cnpj, store.localization, store.email, store.password)
     const repo = new StoreMongooseRepository()
     const post = await repo.save(storeSave)
     expect(post).toBeDefined()
@@ -48,7 +49,6 @@ test("deve testar o GetOne da entidade de comércio", async() => {
     const store = await postStore()
     const repo = new StoreMongooseRepository()
     const getStore = await repo.GetOne(store.id)
-    console.log(getStore)
     expect(getStore.name).toBe(getStore.name)
 },15000)
 
@@ -64,10 +64,17 @@ test("deve testar o getAll da entidade de comércio", async() => {
     expect(getStore2.id).toBe(store1.id)
 }, 15000)
 
-test.only("deve testar o delete da entidade de comércio", async() => {
+test("deve testar o delete da entidade de comércio", async() => {
     await mongoose.connect(process.env.connectionString);
     const store = await postStore()
     const repo = new StoreMongooseRepository()
     expect(async()=> await repo.delete(store.id)).toBeTruthy()
-    // expect(async() => await repo.GetOne(store.id)).toThrow(new Error("nenhum usuário encontrado"))
+}, 15000)
+
+test("deve testar o GetByEmail da entidade de comércio", async() => {
+    await mongoose.connect(process.env.connectionString);
+    const store = await postStore()
+    const repo = new StoreMongooseRepository()
+    const getStore = await repo.GetbyEmail(store.email)
+    expect(store.id).toBe(getStore.id)
 }, 15000)
