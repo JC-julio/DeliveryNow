@@ -51,3 +51,17 @@ test("deve testar o GetOne da entidade de comércio", async() => {
     console.log(getStore)
     expect(getStore.name).toBe(getStore.name)
 },15000)
+
+test("deve testar o getAll da entidade de comércio", async() => {
+    await mongoose.connect(process.env.connectionString);
+    const store = await postStore()
+    const store1 = await postStore()
+    const repo = new StoreMongooseRepository()
+    const getStore = await repo.GetAll()
+    const getStore1 = getStore.find((element) => (element.id) === store.id)
+    expect(getStore1.id).toBe(store.id)
+    const getStore2 = getStore.find((element) => (element.id) === store1.id)
+    expect(getStore2.id).toBe(store1.id)
+}, 15000)
+
+t

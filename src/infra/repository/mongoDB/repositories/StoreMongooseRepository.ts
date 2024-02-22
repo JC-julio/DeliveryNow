@@ -52,7 +52,6 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             cnpj: element.cnpj,
             localization: element.localization,
             email: element.email,
-
         })
         );
     }
