@@ -20,15 +20,35 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             email: store.email,
         })
     }
-    async GetOne(email: string): Promise<any> {
-        
+    async GetOne(id: string): Promise<any> {
+        return this.model.findById(id)
     }
 
     async GetAll(): Promise<Array<Output>> {
-        return
+        const stores = (await this.model.find())
+        if(!stores)
+            throw new Error("nenhum usuário retornado")
+        return stores.map((element) =>({
+            name: element.name,
+            id: element.id,
+            street: element.street,
+            number: element.number,
+            neighborhood: element.neighborhood,
+            CEP: element.CEP,
+            description: element.description,
+            cnpj: element.cnpj,
+            localization: element.localization,
+            email: element.email,
+
+        })
+        );
     }
 
-    async delete(email: string): Promise<void> {
-        
+    async delete(id: string): Promise<void> {
+        await this.model.findByIdAndDelete(id)
+    }
+
+    async GetbyEmail(email: string): Promise<any> {
+        return await this.model.findOne({email: email})
     }
 }
