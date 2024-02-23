@@ -68,10 +68,10 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         await this.model.findByIdAndDelete(id)
     }
 
-    async GetbyEmail(email: string): Promise<any> {
+    async GetbyEmail(email: string): Promise<Store> {
         const getStore = await this.model.findOne({email: email})
         if(!getStore){
-            return "nenhum usuário encontrado"
+            throw new Error("nenhum usuário encontrado")
         }
         const post = {
             name: getStore.name,
