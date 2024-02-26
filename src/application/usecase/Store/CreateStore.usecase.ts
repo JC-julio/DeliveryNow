@@ -6,7 +6,7 @@ import CNPJValidator from "../../../domain/validators/CNPJValidator";
 export default class CreateStore {
     constructor(readonly repo: StoreRepositoryInterface) {}
     async execute(props: Input): Promise<Output> {
-        if(await this.repo.GetOne(props.email))
+        if(await this.repo.GetbyEmail(props.email))
             throw new Error("Email já cadastrado")
         const password = await Store.hashPassword(props.password);
         (new EMAILValidator(props.email));

@@ -11,13 +11,13 @@ export default class Store {
         return await bcrypt.hash(password, 6);
     }
 
-    static async generateToken(storeId) {
-        const token = await jwt.sign({storeId: storeId}, process.env.secretJWTkey, {expiresIn: '7d'});
-        return token;
-    }
+    // static async generateToken(storeId) {
+    //     const token = await jwt.sign({storeId: storeId}, process.env.secretJWTkey, {expiresIn: '7d'});
+    //     return token;
+    // }
 
-    static async validToken(token) {
-        if(jwt.verify(token, process.env.secretJWTkey))
-        return true;
-    }
+    // static async validToken(token) {
+    //     if(jwt.verify(token, process.env.secretJWTkey))
+    //     return true;
+    // }
 }

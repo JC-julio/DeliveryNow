@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import DeliveryManRepositoryInterface, {Output} from "../../../../application/repository/DeliveryManRepositoryInterface";
+import DeliveryManRepositoryInterface from "../../../../application/repository/DeliveryManRepositoryInterface";
 import DeliveryMan from "../../../../domain/DeliveryMan";
 import deliveryManModel from "../models/MongooseModelDeliveryMan";
 
@@ -41,4 +41,14 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
     async delete(id: string): Promise<void> {
         return await this.model.findByIdAndDelete(id)
     }
+}
+
+export type Output = {
+    id: string,
+    name: string,
+    CPF: string,
+    email: string,
+    vehicle: string,
+    vehicleColor: string,
+    plate: string,
 }
