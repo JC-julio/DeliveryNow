@@ -10,7 +10,7 @@ export default class CreateStore {
         if(await this.repo.GetbyEmail(props.email))
             throw new Error("Email já cadastrado")
         if(await this.repo.GetbyCNPJ(props.cnpj))
-            throw new Error("CNPJ já cadastrado")
+            throw new Error("CNPJ já cadastrado, entre em contato com o suporte para mais informações")
         const password = await this.hashPassword(props.password);
         (new EMAILValidator(props.email));
         (new CNPJValidator(props.cnpj));

@@ -1,4 +1,4 @@
-import LoginRepositoryInterface from "../repository/loginRepositoryInterface";
+import LoginRepositoryInterface from "../../repository/loginRepositoryInterface";
 import jwt from 'jsonwebtoken'
 import * as bcrypt from 'bcrypt';
 

@@ -1,4 +1,4 @@
-import LogoutRepositoryInterface from "../repository/LogoutRepositoryInterface";
+import LogoutRepositoryInterface from "../../repository/LogoutRepositoryInterface";
 import jwt from 'jsonwebtoken'
 
 export default class Logout {
