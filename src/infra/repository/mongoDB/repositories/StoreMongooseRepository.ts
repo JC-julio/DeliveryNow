@@ -87,4 +87,12 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         }
         return post
     }
+
+    async GetbyCNPJ(cnpj: string): Promise<any> {
+        return await this.model.findOne({cnpj: cnpj})
+    }
+
+    async UpdateName(id: string, name: string): Promise<void> {
+        return await this.model.findByIdAndUpdate(id, {name: name})
+    }
 }

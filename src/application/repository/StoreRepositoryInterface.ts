@@ -7,6 +7,6 @@ export default interface StoreRepositoryInterface{
     delete(id: string): Promise<void>
     GetbyEmail(email: string): Promise<any>
     GetbyCNPJ(cnpj: string): Promise<any>
-    UpdateName(id: string, name: string): Promise<Store>
+    UpdateName(id: string, name: string): Promise<void>
 }
 

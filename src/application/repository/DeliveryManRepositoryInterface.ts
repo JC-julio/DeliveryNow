@@ -6,5 +6,6 @@ export default interface DeliveryManRepositoryInterface{
     GetAll(): Promise<Array<DeliveryMan>>
     delete(id: string): Promise<void>
     GetByEmail(email: string): Promise<any>
-    GetbyCPF(cnpj: string): Promise<any>
+    GetbyCPF(cpf: string): Promise<any>
+    UpdateName(id: string, name: string): Promise<void>
 }
