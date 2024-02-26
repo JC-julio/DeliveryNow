@@ -9,6 +9,8 @@ export default class CreateDeliveryMan {
     async execute(props: Input): Promise<Output> {
         if(await this.repo.GetByEmail(props.email))
             throw new Error("Email já cadastrado")
+        if(await this.repo.GetbyCPF(props.CPF))
+            throw new Error("CPF já cadastrado, entre em contato com o suporte para mais informações")
         const password = await this.hashPassword(props.password);
         (new CPFValidator(props.CPF));
         (new EMAILValidator(props.email));
