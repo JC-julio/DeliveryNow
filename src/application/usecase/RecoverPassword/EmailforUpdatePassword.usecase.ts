@@ -30,5 +30,5 @@ export default class EmailforUpdatePassword {
 
 export type Input = {
     email: string,
-    code: string
+    code: string,
 }
