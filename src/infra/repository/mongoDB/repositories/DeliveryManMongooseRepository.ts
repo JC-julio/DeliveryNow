@@ -47,6 +47,11 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
     async UpdateName(id: string, name: string): Promise<void> {
         return await this.model.findByIdAndUpdate(id, {name: name})
     }
+    async UpdateEmail(id: string, email: string): Promise<void> {
+        if(await this.model.findOne({email: email}))    
+            throw new Error("email já cadastrado")
+        return await this.model.findByIdAndUpdate(id, {email: email})
+    }
 }
 
 export type Output = {

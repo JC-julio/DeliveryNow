@@ -1,9 +1,9 @@
-import LoginRepositoryInterface from "../../repository/loginRepositoryInterface";
+import LoginAndLogoutRepositoryInterface from "../../repository/LoginAndLogoutRepositoryInterface";
 import jwt from 'jsonwebtoken'
 import * as bcrypt from 'bcrypt';
 
 export default class LoginUsecase {
-  constructor(readonly repo: LoginRepositoryInterface) {}
+  constructor(readonly repo: LoginAndLogoutRepositoryInterface) {}
   async execute(props: input): Promise<any> {
     const getUser = await this.repo.GetByEmail(props.email);
     const token = await this.generateToken(getUser.id)
