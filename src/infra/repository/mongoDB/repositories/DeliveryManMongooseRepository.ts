@@ -9,6 +9,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
     async save(deliveryMan: DeliveryMan): Promise<any> {
         return await this.model.create({
             name: deliveryMan.name,
+            password: deliveryMan.password,
             CPF: deliveryMan.CPF,
             email: deliveryMan.email,
             vehicle: deliveryMan.vehicle,
