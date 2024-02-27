@@ -7,10 +7,10 @@ import * as bcrypt from 'bcrypt';
 export default class CreateDeliveryMan {
     constructor(readonly repo: DeliveryManRepositoryInterface) {}
     async execute(props: Input): Promise<Output> {
-        if(await this.repo.GetByEmail(props.email))
-            throw new Error("Email já cadastrado")
         if(await this.repo.GetbyCPF(props.CPF))
             throw new Error("CPF já cadastrado, entre em contato com o suporte para mais informações")
+        if(await this.repo.GetByEmail(props.email))
+            throw new Error("Email já cadastrado")
         const password = await this.hashPassword(props.password);
         (new CPFValidator(props.CPF));
         (new EMAILValidator(props.email));

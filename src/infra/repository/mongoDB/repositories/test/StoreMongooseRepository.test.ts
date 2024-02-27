@@ -78,3 +78,31 @@ test("deve testar o GetByEmail da entidade de comércio", async() => {
     const getStore = await repo.GetbyEmail(store.email)
     expect(store.id).toBe(getStore.id)
 }, 15000)
+
+test("deve testar o getbyCNPJ", async() => {
+    await mongoose.connect(process.env.connectionString);
+    const store = await postStore()
+    const repo = new StoreMongooseRepository()
+    const getStore = await repo.GetbyCNPJ(store.cnpj)
+    expect(getStore).toBeDefined()
+}, 15000)
+
+test("Deve testar o update de nome", async() => {
+    await mongoose.connect(process.env.connectionString);
+    const store = await postStore()
+    const repo = new StoreMongooseRepository()
+    await repo.UpdateName(store.id, 'João gomes silva')
+    const getStore = await repo.GetOne(store.id)
+    expect(getStore.name).toBe('João gomes silva')
+}, 15000)
+
+test("Deve testar o update de email", async() => {
+    await mongoose.connect(process.env.connectionString);
+    const newEmail = faker.internet.email()
+    const store = await postStore()
+    const repo = new StoreMongooseRepository()
+    await repo.UpdateEmail(store.id, newEmail)
+    const getStore = await repo.GetOne(store.id)
+    expect(getStore.email).toBe(newEmail)
+
+}, 15000)

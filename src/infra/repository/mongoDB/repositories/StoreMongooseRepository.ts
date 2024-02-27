@@ -89,7 +89,23 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
     }
 
     async GetbyCNPJ(cnpj: string): Promise<any> {
-        return await this.model.findOne({cnpj: cnpj})
+        const getStore = await this.model.findOne({cnpj: cnpj})
+        if(!getStore){
+            throw new Error("nenhum usuário encontrado")
+        }
+        const post = {
+            name: getStore.name,
+            id: getStore.id,
+            street: getStore.street,
+            number: getStore.number,
+            neighborhood: getStore.neighborhood,
+            CEP: getStore.CEP,
+            description: getStore.description,
+            cnpj: getStore.cnpj,
+            localization: getStore.localization,
+            email: getStore.email,
+        }
+        return post
     }
 
     async UpdateName(id: string, name: string): Promise<void> {

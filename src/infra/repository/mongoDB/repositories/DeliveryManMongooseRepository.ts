@@ -7,6 +7,7 @@ import deliveryManModel from "../models/MongooseModelDeliveryMan";
 export default class DeliveryManMongooseRepository implements DeliveryManRepositoryInterface {
     model = deliveryManModel
     async save(deliveryMan: DeliveryMan): Promise<any> {
+        console.log(deliveryMan)
         return await this.model.create({
             name: deliveryMan.name,
             password: deliveryMan.password,
