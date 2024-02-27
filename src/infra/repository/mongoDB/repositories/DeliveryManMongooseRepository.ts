@@ -7,8 +7,7 @@ import deliveryManModel from "../models/MongooseModelDeliveryMan";
 export default class DeliveryManMongooseRepository implements DeliveryManRepositoryInterface {
     model = deliveryManModel
     async save(deliveryMan: DeliveryMan): Promise<any> {
-        console.log(deliveryMan)
-        return await this.model.create({
+        const postDeliveryMan = await this.model.create({
             name: deliveryMan.name,
             password: deliveryMan.password,
             CPF: deliveryMan.CPF,
@@ -17,10 +16,27 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             vehicleColor: deliveryMan.vehicleColor,
             plate: deliveryMan.plate,
         });
+        const post = {
+            ...postDeliveryMan['_doc'],
+            id: postDeliveryMan.id,
+            _id: undefined,
+        }
+        return post
     }
     async GetOne(id: string): Promise<Output> {
-        return await this.model.findById(id)
-        
+        const getOneDeliveryMan = await this.model.findById(id)
+        if(!getOneDeliveryMan)
+            throw new Error("nenhum usuário encontrado")
+        const ObjectReturn = {
+            name: getOneDeliveryMan.name,
+            id: getOneDeliveryMan.id,
+            CPF: getOneDeliveryMan.CPF,
+            email: getOneDeliveryMan.email,
+            vehicle: getOneDeliveryMan.vehicle,
+            vehicleColor: getOneDeliveryMan.vehicleColor,
+            plate: getOneDeliveryMan.plate,
+        }
+        return ObjectReturn
     }
     async GetAll(): Promise<Output[]> {
         const deliveryMans = await this.model.find()
@@ -37,14 +53,39 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
         }))
     }
     async GetByEmail(email: string): Promise<any> {
-        return await this.model.findOne({email: email})
-        
+        const getDeliveryMan = await this.model.findOne({email: email})
+        if(!getDeliveryMan){
+            throw new Error("nenhum usuário encontrado")
+        }
+        const post = {
+            name: getDeliveryMan.name,
+            id: getDeliveryMan.id,
+            CPF: getDeliveryMan.CPF,
+            email: getDeliveryMan.email,
+            vehicle: getDeliveryMan.vehicle,
+            vehicleColor: getDeliveryMan.vehicleColor,
+            plate: getDeliveryMan.plate,
+        }
+        return post
     }
     async delete(id: string): Promise<void> {
         return await this.model.findByIdAndDelete(id)
     }
     async GetbyCPF(cpf: string): Promise<any> {
-        return await this.model.findOne({CPF: cpf})
+        const getDeliveryMan = await this.model.findOne({CPF: cpf})
+        if(!getDeliveryMan){
+            throw new Error("nenhum usuário encontrado")
+        }
+        const post = {
+            name: getDeliveryMan.name,
+            id: getDeliveryMan.id,
+            CPF: getDeliveryMan.CPF,
+            email: getDeliveryMan.email,
+            vehicle: getDeliveryMan.vehicle,
+            vehicleColor: getDeliveryMan.vehicleColor,
+            plate: getDeliveryMan.plate,
+        }
+        return post
     }
     async UpdateName(id: string, name: string): Promise<void> {
         return await this.model.findByIdAndUpdate(id, {name: name})

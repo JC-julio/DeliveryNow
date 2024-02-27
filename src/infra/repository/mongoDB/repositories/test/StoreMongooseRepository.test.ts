@@ -104,5 +104,4 @@ test("Deve testar o update de email", async() => {
     await repo.UpdateEmail(store.id, newEmail)
     const getStore = await repo.GetOne(store.id)
     expect(getStore.email).toBe(newEmail)
-
 }, 15000)
