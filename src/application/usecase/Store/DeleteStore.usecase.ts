@@ -1,6 +1,6 @@
 import StoreRepositoryInterface from "../../repository/StoreRepositoryInterface"
 
-export default class DeleteDeliveryMan {
+export default class DeleteStore {
     constructor(readonly repo: StoreRepositoryInterface) {
     }
     async execute(id: Input): Promise<void> {
