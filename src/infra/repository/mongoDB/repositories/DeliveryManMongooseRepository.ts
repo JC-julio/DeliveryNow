@@ -53,13 +53,31 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
         }))
     }
     async GetByEmail(email: string): Promise<Output> {
-        return await this.model.findOne({email: email})
+        const getDeliveryMan = await this.model.findOne({email: email})
+        if(getDeliveryMan)
+        return {
+            name: getDeliveryMan.name,
+            id: getDeliveryMan.id,
+            CPF: getDeliveryMan.CPF,
+            email: getDeliveryMan.email,
+            vehicle: getDeliveryMan.vehicle,
+            vehicleColor: getDeliveryMan.vehicleColor,
+            plate: getDeliveryMan.plate}
     }
     async delete(id: string): Promise<void> {
         return await this.model.findByIdAndDelete(id)
     }
     async GetbyCPF(cpf: string): Promise<Output> {
-        return await this.model.findOne({CPF: cpf})
+        const getDeliveryMan = await this.model.findOne({CPF: cpf})
+        if(getDeliveryMan)
+        return {
+            name: getDeliveryMan.name,
+            id: getDeliveryMan.id,
+            CPF: getDeliveryMan.CPF,
+            email: getDeliveryMan.email,
+            vehicle: getDeliveryMan.vehicle,
+            vehicleColor: getDeliveryMan.vehicleColor,
+            plate: getDeliveryMan.plate}
     }
     async UpdateName(id: string, name: string): Promise<void> {
         return await this.model.findByIdAndUpdate(id, {name: name})

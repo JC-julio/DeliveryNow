@@ -1,4 +1,3 @@
-import DeleteDeliveryMan from '../../DeliveryMan/DeleteDeliveryMan.usecase';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
 import saveDeliveryMan from './CreateDeliveryMan.usecase.test';
@@ -11,4 +10,5 @@ test("Deve selecionar um entregador com base em seu email", async() => {
     const newDeliveryMan = await saveDeliveryMan()
     const repo = new GetbyEmailDeliveryMan(new DeliveryManMongooseRepository())
     const getDeliveryMan = await repo.execute(newDeliveryMan.email)
+    expect(getDeliveryMan.id).toBeDefined()
 }, 15000)
