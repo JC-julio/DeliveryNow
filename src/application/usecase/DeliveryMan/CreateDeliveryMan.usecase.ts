@@ -19,7 +19,7 @@ export default class CreateDeliveryMan {
             password: password,
         })
         const deliveryMan = new DeliveryMan(
-            repoDeliveryMan.name, repoDeliveryMan.password, repoDeliveryMan.CPF,
+            repoDeliveryMan.name, repoDeliveryMan.CPF,
             repoDeliveryMan.email, repoDeliveryMan.vehicle, repoDeliveryMan.vehicleColor,
             repoDeliveryMan.plate, repoDeliveryMan.id)
         return deliveryMan

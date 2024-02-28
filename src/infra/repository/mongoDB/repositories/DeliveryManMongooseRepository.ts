@@ -6,15 +6,15 @@ import deliveryManModel from "../models/MongooseModelDeliveryMan";
 @Injectable()
 export default class DeliveryManMongooseRepository implements DeliveryManRepositoryInterface {
     model = deliveryManModel
-    async save(deliveryMan: DeliveryMan): Promise<any> {
+    async save(deliveryMan: DeliveryMan): Promise<Output> {
         const postDeliveryMan = await this.model.create({
             name: deliveryMan.name,
-            password: deliveryMan.password,
             CPF: deliveryMan.CPF,
             email: deliveryMan.email,
             vehicle: deliveryMan.vehicle,
             vehicleColor: deliveryMan.vehicleColor,
             plate: deliveryMan.plate,
+            password: deliveryMan.password,
         });
         const post = {
             ...postDeliveryMan['_doc'],
@@ -52,40 +52,14 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             plate: element.plate,
         }))
     }
-    async GetByEmail(email: string): Promise<any> {
-        const getDeliveryMan = await this.model.findOne({email: email})
-        if(!getDeliveryMan){
-            throw new Error("nenhum usuário encontrado")
-        }
-        const post = {
-            name: getDeliveryMan.name,
-            id: getDeliveryMan.id,
-            CPF: getDeliveryMan.CPF,
-            email: getDeliveryMan.email,
-            vehicle: getDeliveryMan.vehicle,
-            vehicleColor: getDeliveryMan.vehicleColor,
-            plate: getDeliveryMan.plate,
-        }
-        return post
+    async GetByEmail(email: string): Promise<Output> {
+        return await this.model.findOne({email: email})
     }
     async delete(id: string): Promise<void> {
         return await this.model.findByIdAndDelete(id)
     }
-    async GetbyCPF(cpf: string): Promise<any> {
-        const getDeliveryMan = await this.model.findOne({CPF: cpf})
-        if(!getDeliveryMan){
-            throw new Error("nenhum usuário encontrado")
-        }
-        const post = {
-            name: getDeliveryMan.name,
-            id: getDeliveryMan.id,
-            CPF: getDeliveryMan.CPF,
-            email: getDeliveryMan.email,
-            vehicle: getDeliveryMan.vehicle,
-            vehicleColor: getDeliveryMan.vehicleColor,
-            plate: getDeliveryMan.plate,
-        }
-        return post
+    async GetbyCPF(cpf: string): Promise<Output> {
+        return await this.model.findOne({CPF: cpf})
     }
     async UpdateName(id: string, name: string): Promise<void> {
         return await this.model.findByIdAndUpdate(id, {name: name})
@@ -98,11 +72,11 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
 }
 
 export type Output = {
-    id: string,
     name: string,
     CPF: string,
     email: string,
     vehicle: string,
     vehicleColor: string,
     plate: string,
+    id: string,
 }
