@@ -70,42 +70,40 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
 
     async GetbyEmail(email: string): Promise<Store> {
         const getStore = await this.model.findOne({email: email})
-        if(!getStore){
-            throw new Error("nenhum usuário encontrado")
+        if(getStore){
+            const post = {
+                name: getStore.name,
+                id: getStore.id,
+                street: getStore.street,
+                number: getStore.number,
+                neighborhood: getStore.neighborhood,
+                CEP: getStore.CEP,
+                description: getStore.description,
+                cnpj: getStore.cnpj,
+                localization: getStore.localization,
+                email: getStore.email,
+            }
+            return post
         }
-        const post = {
-            name: getStore.name,
-            id: getStore.id,
-            street: getStore.street,
-            number: getStore.number,
-            neighborhood: getStore.neighborhood,
-            CEP: getStore.CEP,
-            description: getStore.description,
-            cnpj: getStore.cnpj,
-            localization: getStore.localization,
-            email: getStore.email,
-        }
-        return post
     }
 
     async GetbyCNPJ(cnpj: string): Promise<any> {
         const getStore = await this.model.findOne({cnpj: cnpj})
-        if(!getStore){
-            throw new Error("nenhum usuário encontrado")
+        if(getStore){
+            const post = {
+                name: getStore.name,
+                id: getStore.id,
+                street: getStore.street,
+                number: getStore.number,
+                neighborhood: getStore.neighborhood,
+                CEP: getStore.CEP,
+                description: getStore.description,
+                cnpj: getStore.cnpj,
+                localization: getStore.localization,
+                email: getStore.email,
+            }
+            return post
         }
-        const post = {
-            name: getStore.name,
-            id: getStore.id,
-            street: getStore.street,
-            number: getStore.number,
-            neighborhood: getStore.neighborhood,
-            CEP: getStore.CEP,
-            description: getStore.description,
-            cnpj: getStore.cnpj,
-            localization: getStore.localization,
-            email: getStore.email,
-        }
-        return post
     }
 
     async UpdateName(id: string, name: string): Promise<void> {
