@@ -8,12 +8,15 @@ export default class LoginUsecase {
   constructor(readonly repo: LoginAndLogoutRepositoryInterface) {}
   async execute(props: input): Promise<any> {
     const getUser = await this.repo.GetByEmail(props.email);
+    if(!getUser)
+        throw new Error("usuário não encontrado")
     const token = await this.generateToken(getUser.id)
     if (this.validPassword(props.password, getUser.password)) {
         const objectReturn = {
             ...getUser,
             token: token,
         };
+    
         return objectReturn;
     }}
 
@@ -22,7 +25,7 @@ export default class LoginUsecase {
         return token;
     }
 
-    async validPassword(password, passwordforDB) {
+    async validPassword(password, passwordforDB): Promise<boolean> {
         const passwordIsValid = await bcrypt.compare(password, passwordforDB)
         if(!passwordIsValid){
           throw new Error("Senha incorreta!")

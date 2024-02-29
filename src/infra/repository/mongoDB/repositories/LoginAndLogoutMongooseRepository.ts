@@ -17,6 +17,7 @@ export default class LoginAndLogoutMongooseRepository implements LoginAndLogoutR
         if(store)
         return {
             name: store.name,
+            password: store.password,
             id: store.id,
             street: store.street,
             number: store.number,
@@ -31,13 +32,12 @@ export default class LoginAndLogoutMongooseRepository implements LoginAndLogoutR
         if(deliveryMan)
         return {
             name: deliveryMan.name,
+            password: deliveryMan.password,
             id: deliveryMan.id,
             CPF: deliveryMan.CPF,
             email: deliveryMan.email,
             vehicle: deliveryMan.vehicle,
             vehicleColor: deliveryMan.vehicleColor,
             plate: deliveryMan.plate}
-        else
-        throw new Error("nenhum usuário encontrado!")
     }
 }

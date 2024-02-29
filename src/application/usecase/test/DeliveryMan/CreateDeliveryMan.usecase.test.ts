@@ -20,7 +20,10 @@ export default async function saveDeliveryMan() {
     await mongoose.connect(process.env.connectionString);
     const repo = new CreateDeliveryMan(new DeliveryManMongooseRepository())
     const returnDeliveryMan = await repo.execute(validInput)
-    return returnDeliveryMan
+    return {
+        ...returnDeliveryMan,
+        password: validInput.password
+    }
 }
 
 test("deve criar um novo entregador", async() => {

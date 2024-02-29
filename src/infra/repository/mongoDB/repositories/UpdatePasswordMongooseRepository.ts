@@ -7,15 +7,34 @@ export default class updatePasswordMongooseRepository implements UpdatePasswordR
     modelStore = storeModel
 
     async GetByEmail(email: string): Promise<any> {
-        const store = await this.modelStore.findOne({email: email})
-        if(store)
-            return store
-        const deliveryMan = await this.modelDeliveryMan.findOne({email: email})
-        if(deliveryMan)
-            return deliveryMan
-        else
-        throw new Error("nenhum usuário encontrado!")
-    }
+    const store = await this.modelStore.findOne({email: email})
+    if(store)
+        return {
+            name: store.name,
+            password: store.password,
+            id: store.id,
+            street: store.street,
+            number: store.number,
+            neighborhood: store.neighborhood,
+            CEP: store.CEP,
+            description: store.description,
+            cnpj: store.cnpj,
+            localization: store.localization,
+            email: store.email,
+        }
+    const deliveryMan = await this.modelDeliveryMan.findOne({email: email})
+    if(deliveryMan)
+        return {
+            name: deliveryMan.name,
+            password: deliveryMan.password,
+            id: deliveryMan.id,
+            CPF: deliveryMan.CPF,
+            email: deliveryMan.email,
+            vehicle: deliveryMan.vehicle,
+            vehicleColor: deliveryMan.vehicleColor,
+            plate: deliveryMan.plate
+        }
+}
 
     async updatePassword(id: string, password: string): Promise<void> {
         if(await this.modelDeliveryMan.findById(id)) {
