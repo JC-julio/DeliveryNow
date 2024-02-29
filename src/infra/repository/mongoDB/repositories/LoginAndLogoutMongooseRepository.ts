@@ -6,18 +6,37 @@ export default class LoginAndLogoutMongooseRepository implements LoginAndLogoutR
     model = tokenModel
     modelDeliveryMan = deliveryManModel
     modelStore = storeModel
-    async save(token: string): Promise<void> {
-        await this.model.create({
+    async save(token: string): Promise<any> {
+        const returntoken = await this.model.create({
             token: token
         })
+        return returntoken
     }
     async GetByEmail(email: string): Promise<any> {
         const store = await this.modelStore.findOne({email: email})
         if(store)
-            return store
+        return {
+            name: store.name,
+            id: store.id,
+            street: store.street,
+            number: store.number,
+            neighborhood: store.neighborhood,
+            CEP: store.CEP,
+            description: store.description,
+            cnpj: store.cnpj,
+            localization: store.localization,
+            email: store.email,
+        }
         const deliveryMan = await this.modelDeliveryMan.findOne({email: email})
         if(deliveryMan)
-            return deliveryMan
+        return {
+            name: deliveryMan.name,
+            id: deliveryMan.id,
+            CPF: deliveryMan.CPF,
+            email: deliveryMan.email,
+            vehicle: deliveryMan.vehicle,
+            vehicleColor: deliveryMan.vehicleColor,
+            plate: deliveryMan.plate}
         else
         throw new Error("nenhum usuário encontrado!")
     }

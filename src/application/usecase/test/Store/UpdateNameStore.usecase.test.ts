@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import StoreMongooseRepository from '../../../../infra/repository/mongoDB/repositories/StoreMongooseRepository';
-import * as faker from 'faker'
 import saveStore from './CreateStore.usecase.test';
 import { config } from 'dotenv';
 import GetOneStore from '../../Store/GetOneStore.usecase';

@@ -1,5 +1,7 @@
 import LoginAndLogoutRepositoryInterface from "../../repository/LoginAndLogoutRepositoryInterface";
 import jwt from 'jsonwebtoken'
+import { config } from 'dotenv';
+config()
 import * as bcrypt from 'bcrypt';
 
 export default class LoginUsecase {

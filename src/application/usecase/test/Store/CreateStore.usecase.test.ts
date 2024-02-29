@@ -22,7 +22,10 @@ export default async function saveStore() {
     await mongoose.connect(process.env.connectionString);
     const repo = new CreateStore(new StoreMongooseRepository())
     const store = await repo.execute(validInput)
-    return store
+    return {
+        ...store,
+        password: validInput.password
+    }
 }
 
 test("Deve criar uma loja com sucesso", async() => {
