@@ -6,7 +6,7 @@ import storeModel from "../models/mongooseModelStore";
 @Injectable()
 export default class StoreMongooseRepository implements StoreRepositoryInterface {
     model = storeModel
-    async save(store: Store): Promise<any> {
+    async save(store: Store): Promise<Output> {
         const postStore = await this.model.create({
             name: store.name,
             password: store.password,
@@ -27,7 +27,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         }
         return post
     }
-    async GetOne(id: string): Promise<Store> {
+    async GetOne(id: string): Promise<Output> {
         const getOneStore = await this.model.findById(id)
         if(!getOneStore)
             throw new Error("nenhum usuário encontrado")
@@ -47,7 +47,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         return ObjectReturn
     }
 
-    async GetAll(): Promise<Array<Store>> {
+    async GetAll(): Promise<Array<Output>> {
         const stores = (await this.model.find())
         if(!stores)
             throw new Error("nenhum usuário retornado")
@@ -71,7 +71,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         await this.model.findByIdAndDelete(id)
     }
 
-    async GetbyEmail(email: string): Promise<Store> {
+    async GetbyEmail(email: string): Promise<Output> {
         const getStore = await this.model.findOne({email: email})
         if(getStore){
             const post = {
@@ -91,7 +91,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         }
     }
 
-    async GetbyCNPJ(cnpj: string): Promise<any> {
+    async GetbyCNPJ(cnpj: string): Promise<Output> {
         const getStore = await this.model.findOne({cnpj: cnpj})
         if(getStore){
             const post = {
@@ -120,8 +120,17 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             throw new Error("email já cadastrado")
         return await this.model.findByIdAndUpdate(id, {email: email})
     }
+}
 
-    async UpdatePhotoProfile(id: string, URLPhotoProfile: string): Promise<void> {
-        return await this.model.findByIdAndUpdate(id, {URLPhotoProfile: URLPhotoProfile})
-    }
+export type Output = {
+    id: string,
+    name: string,
+    street: string,
+    number: string,
+    neighborhood: string,
+    CEP: string,
+    description: string,
+    cnpj: string,
+    localization: string,
+    email: string,
 }

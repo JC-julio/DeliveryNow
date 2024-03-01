@@ -41,8 +41,6 @@ export default class updatePasswordMongooseRepository implements UpdatePasswordR
             await this.modelDeliveryMan.findByIdAndUpdate(id, {password: password})
         } else if(await this.modelStore.findById(id)) {
             await this.modelStore.findByIdAndUpdate(id, {password: password})
-        } else {
-            throw new Error("nenhum usuário encontrado")
         }
     }
 }

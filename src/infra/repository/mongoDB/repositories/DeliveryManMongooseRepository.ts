@@ -95,10 +95,6 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             throw new Error("email já cadastrado")
         return await this.model.findByIdAndUpdate(id, {email: email})
     }
-
-    async UpdatePhotoProfile(id: string, URLPhotoProfile: string): Promise<void> {
-        return await this.model.findByIdAndUpdate(id, {URLPhotoProfile: URLPhotoProfile})
-    }
 }
 
 export type Output = {
