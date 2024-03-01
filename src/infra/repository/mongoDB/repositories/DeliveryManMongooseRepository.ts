@@ -15,6 +15,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             vehicleColor: deliveryMan.vehicleColor,
             plate: deliveryMan.plate,
             password: deliveryMan.password,
+            URLPhotoProfile: null,
         });
         const post = {
             ...postDeliveryMan['_doc'],
@@ -35,6 +36,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             vehicle: getOneDeliveryMan.vehicle,
             vehicleColor: getOneDeliveryMan.vehicleColor,
             plate: getOneDeliveryMan.plate,
+            URLPhotoProfile: getOneDeliveryMan.URLPhotoProfile,
         }
         return ObjectReturn
     }
@@ -50,6 +52,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             vehicle: element.vehicle,
             vehicleColor: element.vehicleColor,
             plate: element.plate,
+            URLPhotoProfile: element.URLPhotoProfile,
         }))
     }
     async GetByEmail(email: string): Promise<Output> {
@@ -62,7 +65,9 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             email: getDeliveryMan.email,
             vehicle: getDeliveryMan.vehicle,
             vehicleColor: getDeliveryMan.vehicleColor,
-            plate: getDeliveryMan.plate}
+            plate: getDeliveryMan.plate,
+            URLPhotoProfile: getDeliveryMan.URLPhotoProfile,
+        }
     }
     async delete(id: string): Promise<void> {
         return await this.model.findByIdAndDelete(id)
@@ -77,15 +82,22 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             email: getDeliveryMan.email,
             vehicle: getDeliveryMan.vehicle,
             vehicleColor: getDeliveryMan.vehicleColor,
-            plate: getDeliveryMan.plate}
+            plate: getDeliveryMan.plate,
+            URLPhotoProfile: getDeliveryMan.URLPhotoProfile,
+        }
     }
     async UpdateName(id: string, name: string): Promise<void> {
         return await this.model.findByIdAndUpdate(id, {name: name})
     }
+
     async UpdateEmail(id: string, email: string): Promise<void> {
         if(await this.model.findOne({email: email}))    
             throw new Error("email já cadastrado")
         return await this.model.findByIdAndUpdate(id, {email: email})
+    }
+
+    async UpdatePhotoProfile(id: string, URLPhotoProfile: string): Promise<void> {
+        return await this.model.findByIdAndUpdate(id, {URLPhotoProfile: URLPhotoProfile})
     }
 }
 
@@ -97,4 +109,5 @@ export type Output = {
     vehicleColor: string,
     plate: string,
     id: string,
+    URLPhotoProfile: string,
 }

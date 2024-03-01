@@ -37,7 +37,6 @@ test("Deve persistir um entregador na database", async() => {
     const deliveryMan = new DeliveryMan(validInput.name, validInput.CPF, validInput.email, validInput.vehicle, validInput.vehicleColor, validInput.plate, validInput.password)
     const repo = new DeliveryManMongooseRepository()
     const post = await repo.save(deliveryMan)
-    console.log(post)
     expect(post).toBeDefined()
 }, 15000)
 

@@ -18,6 +18,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             cnpj: store.cnpj,
             localization: store.localization,
             email: store.email,
+            URLPhotoProfile: null,
         })
         const post = {
             ...postStore['_doc'],
@@ -41,6 +42,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             cnpj: getOneStore.cnpj,
             localization: getOneStore.localization,
             email: getOneStore.email,
+            URLPhotoProfile: getOneStore.URLPhotoProfile,
         }
         return ObjectReturn
     }
@@ -60,6 +62,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
             cnpj: element.cnpj,
             localization: element.localization,
             email: element.email,
+            URLPhotoProfile: element.URLPhotoProfile,
         })
         );
     }
@@ -82,6 +85,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
                 cnpj: getStore.cnpj,
                 localization: getStore.localization,
                 email: getStore.email,
+                URLPhotoProfile: getStore.URLPhotoProfile,
             }
             return post
         }
@@ -101,6 +105,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
                 cnpj: getStore.cnpj,
                 localization: getStore.localization,
                 email: getStore.email,
+                URLPhotoProfile: getStore.URLPhotoProfile,
             }
             return post
         }
@@ -114,5 +119,9 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         if(await this.model.findOne({email: email}))    
             throw new Error("email já cadastrado")
         return await this.model.findByIdAndUpdate(id, {email: email})
+    }
+
+    async UpdatePhotoProfile(id: string, URLPhotoProfile: string): Promise<void> {
+        return await this.model.findByIdAndUpdate(id, {URLPhotoProfile: URLPhotoProfile})
     }
 }

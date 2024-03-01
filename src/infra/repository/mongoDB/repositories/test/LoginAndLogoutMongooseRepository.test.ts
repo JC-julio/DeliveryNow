@@ -20,7 +20,6 @@ test("deve selecionar um comércio com base em seu email", async() => {
     const store = await saveStore()
     const repo = new LoginAndLogoutMongooseRepository()
     const getStore = await repo.GetByEmail(store.email)
-    console.log(getStore)
     expect(getStore.email).toBe(store.email)
 }, 15000)
 
@@ -29,6 +28,5 @@ test("deve selecionar um entregador com base em seu email", async() => {
     const deliveryMan = await saveDeliveryMan()
     const repo = new LoginAndLogoutMongooseRepository()
     const getDeliveryMan = await repo.GetByEmail(deliveryMan.email)
-    console.log(getDeliveryMan)
     expect(getDeliveryMan.email).toBe(deliveryMan.email)
 }, 15000)

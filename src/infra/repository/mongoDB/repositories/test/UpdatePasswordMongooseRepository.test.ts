@@ -30,6 +30,5 @@ test("deve substituir a senha de um entregador", async() => {
     const repo = new updatePasswordMongooseRepository()
     await repo.updatePassword(deliveryMan.id, 'estasenhanãoestaCRIPTOGRAFADA')
     const getDeliveryMan = await repo.GetByEmail(deliveryMan.email)
-    console.log(getDeliveryMan)
     expect(getDeliveryMan.password).toBe('estasenhanãoestaCRIPTOGRAFADA')
 }, 15000)

@@ -11,6 +11,7 @@ export const storeSchema = new Schema({
     cnpj: String,
     localization: String,
     email: String,
+    URLPhotoProfile: String,
 })
 
 const storeModel = model('store', storeSchema)

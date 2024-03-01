@@ -6,5 +6,5 @@ import EmailforUpdatePassword from "../../RecoverPassword/EmailforUpdatePassword
 
 test("deve enviar um email de verificação", async() => {
     const usecase = new EmailforUpdatePassword()
-    await usecase.execute({email: 'anapaguiargp@gmail.com', code: '12345678'})
+    await usecase.execute({email: 'jcaguiarpg@gmail.com', code: '12345678'})
 }, 15000)
