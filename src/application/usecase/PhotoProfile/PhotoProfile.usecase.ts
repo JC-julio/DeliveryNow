@@ -14,10 +14,8 @@ cloudinary.v2.config({
     export default class PhotoProfile {
         constructor(readonly repo: PhotoProfileRepositoryInterface) {}
         async execute(props: Input): Promise<Output> {
-            // Faz o upload do arquivo para o Cloudinary
             const image = await cloudinary.v2.uploader.upload(props.image)
             const URLImage = image.secure_url
-            // Atualiza o perfil com a URL da imagem
             await this.repo.NewPhotoProfile(props.id, URLImage);
             return {
                 URLImage: URLImage

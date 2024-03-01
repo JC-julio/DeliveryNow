@@ -3,6 +3,8 @@ import LoginUsecase from "../../login&Logout/Login.usecase"
 import saveDeliveryMan from "../DeliveryMan/CreateDeliveryMan.usecase.test"
 import mongoose from "mongoose";
 import saveStore from "../Store/CreateStore.usecase.test";
+import { config } from 'dotenv';
+config();
 
 test("deve gerar um token de autorização para um entregador com sucesso", async() => {
     await mongoose.connect(process.env.connectionString);
