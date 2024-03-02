@@ -14,6 +14,8 @@ cloudinary.v2.config({
 export default class PhotoProfile {
     constructor(readonly repo: PhotoProfileRepositoryInterface) {}
     async execute(props: Input): Promise<Output> {
+        if(!await this.repo.GetOne(props.id))
+            throw new Error("usuário não encontrado")
         const image = await cloudinary.v2.uploader.upload(props.image)
         const URLImage = image.secure_url
         await this.repo.NewPhotoProfile(props.id, URLImage);

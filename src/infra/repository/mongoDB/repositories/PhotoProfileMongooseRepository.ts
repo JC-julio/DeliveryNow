@@ -9,20 +9,33 @@ export default class PhotoProfileMongooseRepository implements PhotoProfileRepos
     modelDeliveryMan = deliveryManModel
     modelStore = storeModel
     
-    async NewPhotoProfile(id: string, URLPhotoProfile: any): Promise<void> {
+    async NewPhotoProfile(id: string, URLPhotoProfile: string): Promise<void> {
         if(await this.modelDeliveryMan.findById(id)) {
             await this.modelDeliveryMan.findByIdAndUpdate(id, {URLPhotoProfile: URLPhotoProfile})
         } else if(await this.modelStore.findById(id)) {
             await this.modelStore.findByIdAndUpdate(id, {URLPhotoProfile: URLPhotoProfile})
         }
     }
+
+    async GetUrlPhotoProfile(id: string): Promise<any> {
+        const store = await this.modelStore.findById(id)
+        if(store)
+        return {
+            URLPhotoProfile: store.URLPhotoProfile,
+        }
+        const deliveryMan = await this.modelDeliveryMan.findById(id)
+        if(deliveryMan)
+        return {
+            URLPhotoProfile: deliveryMan.URLPhotoProfile,
+        }
+    }
+
     async GetOne(id: string): Promise<Store | DeliveryMan> {
         const store = await this.modelStore.findById(id)
         if(store)
         return {
             name: store.name,
             password: store.password,
-            id: store.id,
             street: store.street,
             number: store.number,
             neighborhood: store.neighborhood,
@@ -31,6 +44,7 @@ export default class PhotoProfileMongooseRepository implements PhotoProfileRepos
             cnpj: store.cnpj,
             localization: store.localization,
             email: store.email,
+            id: store.id,
         }
         const deliveryMan = await this.modelDeliveryMan.findById(id)
         if(deliveryMan)
