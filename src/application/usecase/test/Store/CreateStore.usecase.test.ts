@@ -6,7 +6,7 @@ import StoreMongooseRepository from '../../../../infra/repository/mongoDB/reposi
 import { config } from 'dotenv';
 config();
 
-export default async function saveStore() {
+async function saveStore() {
     const validInput = {
         name: 'loja do seu zé',
         password: '12345678',
