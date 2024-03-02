@@ -1,10 +1,56 @@
 import LoginAndLogoutMongooseRepository from "../../../../infra/repository/mongoDB/repositories/LoginAndLogoutMongooseRepository"
 import LoginUsecase from "../../login&Logout/Login.usecase"
-import saveDeliveryMan from "../DeliveryMan/CreateDeliveryMan.usecase.test"
 import mongoose from "mongoose";
-import saveStore from "../Store/CreateStore.usecase.test";
+import * as faker from 'faker'
+import { cnpj } from 'cpf-cnpj-validator';
+import { cpf } from 'cpf-cnpj-validator';
+import CreateDeliveryMan from '../../DeliveryMan/CreateDeliveryMan.usecase';
+import DeliveryManMongooseRepository from "../../../../infra/repository/mongoDB/repositories/DeliveryManMongooseRepository";
 import { config } from 'dotenv';
+import CreateStore from "../../Store/CreateStore.usecase";
+import StoreMongooseRepository from "../../../../infra/repository/mongoDB/repositories/StoreMongooseRepository";
 config();
+
+async function saveDeliveryMan() {
+    const validInput = {
+        name: 'Júlio César Aguiar',
+        email: faker.internet.email(),
+        CPF: cpf.generate(),
+        vehicle: 'titan start 125cc',
+        vehicleColor: 'preta',
+        plate: 'abc-1234',
+        password: '12345678'
+    }
+    await mongoose.connect(process.env.connectionString);
+    const repo = new CreateDeliveryMan(new DeliveryManMongooseRepository())
+    const returnDeliveryMan = await repo.execute(validInput)
+    return {
+        ...returnDeliveryMan,
+        password: validInput.password
+    }
+}
+
+async function saveStore() {
+    const validInput = {
+        name: 'loja do seu zé',
+        password: '12345678',
+        street: 'rua 1',
+        number: '401',
+        neighborhood: 'bairro do seu zé',
+        CEP: '72507-241',
+        description: 'comércio de bebidas',
+        cnpj: cnpj.generate(),
+        localization: '-13.655173, -59.791912',
+        email: faker.internet.email()
+    }
+    await mongoose.connect(process.env.connectionString);
+    const repo = new CreateStore(new StoreMongooseRepository())
+    const store = await repo.execute(validInput)
+    return {
+        ...store,
+        password: validInput.password
+    }
+}
 
 test("deve gerar um token de autorização para um entregador com sucesso", async() => {
     await mongoose.connect(process.env.connectionString);

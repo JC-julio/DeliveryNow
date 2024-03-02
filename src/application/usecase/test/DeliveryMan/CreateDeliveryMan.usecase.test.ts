@@ -1,5 +1,3 @@
-import * as faker from 'faker'
-import { cpf } from 'cpf-cnpj-validator';
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
 config();
@@ -7,7 +5,9 @@ import CreateDeliveryMan from '../../DeliveryMan/CreateDeliveryMan.usecase'
 import DeliveryManMongooseRepository from '../../../../infra/repository/mongoDB/repositories/DeliveryManMongooseRepository'
 
 
-export default async function saveDeliveryMan() {
+import * as faker from 'faker'
+import { cpf } from 'cpf-cnpj-validator';
+async function saveDeliveryMan() {
     const validInput = {
         name: 'Júlio César Aguiar',
         email: faker.internet.email(),
