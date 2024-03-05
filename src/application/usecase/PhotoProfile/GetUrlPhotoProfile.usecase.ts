@@ -20,3 +20,4 @@ export type Input = {
 export type Output = {
     URLPhotoProfile: string,
 }
+

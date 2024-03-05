@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import { config } from 'dotenv';
-config();
 import CreateDeliveryMan from "../../DeliveryMan/CreateDeliveryMan";
 import DeliveryManMongooseRepository from '../../../../infra/repository/mongoDB/repositories/DeliveryManMongooseRepository'
 import * as faker from 'faker'
 import { cpf } from 'cpf-cnpj-validator';
+import { config } from 'dotenv';
+config();
 
 test("deve criar um novo entregador", async() => {
     const validInput = {
