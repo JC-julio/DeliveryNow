@@ -12,6 +12,8 @@ export default class GetAllDeliveryMans {
             vehicleColor: DeliveryMan.vehicleColor,
             plate: DeliveryMan.plate,
             id: DeliveryMan.id,
+            credibility: DeliveryMan.credibility,
+            URLPhotoProfile: DeliveryMan.URLPhotoProfile,
         }})
         return deliveryMans
     }
@@ -27,4 +29,6 @@ export type Output = {
     vehicle: string,
     vehicleColor: string,
     plate: string,
+    credibility: number,
+    URLPhotoProfile: string,
 }

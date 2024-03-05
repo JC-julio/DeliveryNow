@@ -6,7 +6,7 @@ config();
 
 import * as faker from 'faker'
 import { cpf } from 'cpf-cnpj-validator';
-import CreateDeliveryMan from '../../DeliveryMan/CreateDeliveryMan.usecase';
+import CreateDeliveryMan from "../../DeliveryMan/CreateDeliveryMan";
 async function saveDeliveryMan() {
     const validInput = {
         name: 'Júlio César Aguiar',

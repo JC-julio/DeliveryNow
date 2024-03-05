@@ -3,7 +3,7 @@ import UpdatePassword from "../../RecoverPassword/UpdatePassword.usecase";
 import updatePasswordMongooseRepository from "../../../../infra/repository/mongoDB/repositories/UpdatePasswordMongooseRepository";
 import LoginUsecase from "../../login&Logout/Login.usecase";
 import LoginAndLogoutMongooseRepository from "../../../../infra/repository/mongoDB/repositories/LoginAndLogoutMongooseRepository";
-import CreateDeliveryMan from "../../DeliveryMan/CreateDeliveryMan.usecase";
+import CreateDeliveryMan from "../../DeliveryMan/CreateDeliveryMan";
 import { cpf, cnpj } from "cpf-cnpj-validator";
 import DeliveryManMongooseRepository from "../../../../infra/repository/mongoDB/repositories/DeliveryManMongooseRepository";
 import StoreMongooseRepository from "../../../../infra/repository/mongoDB/repositories/StoreMongooseRepository";

@@ -18,4 +18,6 @@ export type Output = {
     vehicle: string,
     vehicleColor: string,
     plate: string,
+    credibility?: number,
+    URLPhotoProfile?: string,
 }

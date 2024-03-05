@@ -9,6 +9,7 @@ export const deliveryManSchema = new Schema({
     vehicleColor: String,
     plate: String,
     URLPhotoProfile: String,
+    credibility: Number,
 })
 
 const deliveryManModel = model('DeliveryMan', deliveryManSchema)

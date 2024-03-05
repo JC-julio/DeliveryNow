@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import * as faker from 'faker'
 import { cnpj } from 'cpf-cnpj-validator';
 import { cpf } from 'cpf-cnpj-validator';
-import CreateDeliveryMan from '../../DeliveryMan/CreateDeliveryMan.usecase';
+import CreateDeliveryMan from "../../DeliveryMan/CreateDeliveryMan";
 import DeliveryManMongooseRepository from "../../../../infra/repository/mongoDB/repositories/DeliveryManMongooseRepository";
 import { config } from 'dotenv';
 import CreateStore from "../../Store/CreateStore.usecase";

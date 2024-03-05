@@ -15,7 +15,8 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             vehicleColor: deliveryMan.vehicleColor,
             plate: deliveryMan.plate,
             password: deliveryMan.password,
-            URLPhotoProfile: null,
+            credibility: deliveryMan.credibility,
+            URLPhotoProfile: deliveryMan.URLPhotoProfile,
         });
         const post = {
             ...postDeliveryMan['_doc'],
@@ -37,6 +38,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             vehicleColor: getOneDeliveryMan.vehicleColor,
             plate: getOneDeliveryMan.plate,
             URLPhotoProfile: getOneDeliveryMan.URLPhotoProfile,
+            credibility: getOneDeliveryMan.credibility,
         }
         return ObjectReturn
     }
@@ -51,7 +53,8 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             email: element.email,
             vehicle: element.vehicle,
             vehicleColor: element.vehicleColor,
-            plate: element.plate,
+            plate: element.plate, 
+            credibility: element.credibility,
             URLPhotoProfile: element.URLPhotoProfile,
         }))
     }
@@ -66,6 +69,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             vehicle: getDeliveryMan.vehicle,
             vehicleColor: getDeliveryMan.vehicleColor,
             plate: getDeliveryMan.plate,
+            credibility: getDeliveryMan.credibility,
             URLPhotoProfile: getDeliveryMan.URLPhotoProfile,
         }
     }
@@ -77,12 +81,13 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
         if(getDeliveryMan)
         return {
             name: getDeliveryMan.name,
-            id: getDeliveryMan.id,
             CPF: getDeliveryMan.CPF,
             email: getDeliveryMan.email,
             vehicle: getDeliveryMan.vehicle,
             vehicleColor: getDeliveryMan.vehicleColor,
             plate: getDeliveryMan.plate,
+            id: getDeliveryMan.id,
+            credibility: getDeliveryMan.credibility,
             URLPhotoProfile: getDeliveryMan.URLPhotoProfile,
         }
     }
@@ -105,5 +110,6 @@ export type Output = {
     vehicleColor: string,
     plate: string,
     id: string,
+    credibility: number,
     URLPhotoProfile: string,
 }

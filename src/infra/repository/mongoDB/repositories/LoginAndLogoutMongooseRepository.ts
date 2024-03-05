@@ -38,6 +38,7 @@ export default class LoginAndLogoutMongooseRepository implements LoginAndLogoutR
             email: deliveryMan.email,
             vehicle: deliveryMan.vehicle,
             vehicleColor: deliveryMan.vehicleColor,
-            plate: deliveryMan.plate}
+            plate: deliveryMan.plate
+        }
     }
 }

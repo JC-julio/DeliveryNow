@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { config } from 'dotenv';
 config();
-import CreateDeliveryMan from '../../DeliveryMan/CreateDeliveryMan.usecase'
+import CreateDeliveryMan from "../../DeliveryMan/CreateDeliveryMan";
 import DeliveryManMongooseRepository from '../../../../infra/repository/mongoDB/repositories/DeliveryManMongooseRepository'
 
 
