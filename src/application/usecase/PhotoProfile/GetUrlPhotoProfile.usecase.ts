@@ -1,14 +1,13 @@
-import Store from "src/domain/Store";
 import PhotoProfileRepositoryInterface from "../../repository/PhotoProfileRepositoryInterface";
-import DeliveryMan from "src/domain/DeliveryMan";
 
 export default class GetURLPhotoProfile {
     constructor(readonly repo: PhotoProfileRepositoryInterface) {}
     async execute(props: Input): Promise<Output> {
         const user = await this.repo.GetUrlPhotoProfile(props.id)
-        if(!user || user.URLPhotoProfile)
+        if(!user || user.URLPhotoProfile === null)
             throw new Error("usuário não encontrado")
         return {
+            ...user,
             URLPhotoProfile: user.URLPhotoProfile
         }
     }
