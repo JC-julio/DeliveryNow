@@ -1,13 +1,17 @@
 import EMAILValidator from "../../../domain/validators/EMAILValidator";
 import ConsumerRepositoryInterface from "../../repository/ConsumerRepositoryInterface";
-import * as bcrypt from 'bcrypt';
+import ServiceRepositoryinterface from "../../repository/Service/ServiceRepositoryInterface";
 import Consumer from "../../../domain/Consumer";
+import * as bcrypt from 'bcrypt';
 
 export default class CreateConsumer {
-    constructor (readonly repo: ConsumerRepositoryInterface) {}
+    constructor (
+        readonly repo: ConsumerRepositoryInterface,
+        readonly service: ServiceRepositoryinterface
+        ) {}
     async execute(props: Input) {
         (new EMAILValidator(props.email))
-        if (await this.repo.GetByEmail(props.email))
+        if (await this.service.GetByEmail(props.email))
             throw new Error("CPF já cadastrado, entre em contato com o suporte para mais informações");
         const password = await this.hashPassword(props.password)
         const repoConsumer = await this.repo.save({
@@ -15,7 +19,7 @@ export default class CreateConsumer {
             password: password,
         })
         const consumer = new Consumer(
-            repoConsumer.user, repoConsumer.email, repoConsumer.id
+            repoConsumer.name, repoConsumer.email, repoConsumer.id
         );
         return consumer
     }
@@ -25,7 +29,7 @@ export default class CreateConsumer {
 }
 
 export type Input = {
-    user: string,
+    name: string,
     password: string,
     email: string,
     id: string,

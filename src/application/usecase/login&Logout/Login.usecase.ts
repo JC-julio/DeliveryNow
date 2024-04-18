@@ -3,11 +3,15 @@ import jwt from 'jsonwebtoken'
 import { config } from 'dotenv';
 config()
 import * as bcrypt from 'bcrypt';
+import ServiceRepositoryinterface from "../../repository/Service/ServiceRepositoryInterface";
 
 export default class LoginUsecase {
-  constructor(readonly repo: LoginAndLogoutRepositoryInterface) {}
+  constructor(
+    readonly repo: LoginAndLogoutRepositoryInterface,
+    readonly service: ServiceRepositoryinterface,
+    ) {}
   async execute(props: input): Promise<any> {
-    const getUser = await this.repo.GetByEmail(props.email);
+    const getUser = await this.service.GetByEmail(props.email)
     if(!getUser)
         throw new Error("usuário não encontrado")
     const token = await this.generateToken(getUser.id)

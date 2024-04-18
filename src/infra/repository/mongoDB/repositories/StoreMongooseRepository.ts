@@ -1,4 +1,4 @@
-    import { Injectable } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import StoreRepositoryInterface from "../../../../application/repository/StoreRepositoryInterface";
 import Store from "../../../../domain/Store";
 import storeModel from "../models/mongooseModelStore";
@@ -29,7 +29,7 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
     }
     async GetOne(id: string): Promise<Output> {
         const getOneStore = await this.model.findById(id)
-        if(!getOneStore)
+        if (!getOneStore)
             throw new Error("nenhum usuário encontrado")
         const ObjectReturn = {
             name: getOneStore.name,
@@ -49,9 +49,9 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
 
     async GetAll(): Promise<Array<Output>> {
         const stores = (await this.model.find())
-        if(!stores)
+        if (!stores)
             throw new Error("nenhum usuário retornado")
-        return stores.map((element) =>({
+        return stores.map((element) => ({
             name: element.name,
             id: element.id,
             street: element.street,
@@ -71,29 +71,9 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
         await this.model.findByIdAndDelete(id)
     }
 
-    async GetbyEmail(email: string): Promise<Output> {
-        const getStore = await this.model.findOne({email: email})
-        if(getStore){
-            const post = {
-                name: getStore.name,
-                id: getStore.id,
-                street: getStore.street,
-                number: getStore.number,
-                neighborhood: getStore.neighborhood,
-                CEP: getStore.CEP,
-                description: getStore.description,
-                cnpj: getStore.cnpj,
-                localization: getStore.localization,
-                email: getStore.email,
-                URLPhotoProfile: getStore.URLPhotoProfile,
-            }
-            return post
-        }
-    }
-
     async GetbyCNPJ(cnpj: string): Promise<Output> {
-        const getStore = await this.model.findOne({cnpj: cnpj})
-        if(getStore){
+        const getStore = await this.model.findOne({ cnpj: cnpj })
+        if (getStore) {
             const post = {
                 name: getStore.name,
                 id: getStore.id,
@@ -112,13 +92,13 @@ export default class StoreMongooseRepository implements StoreRepositoryInterface
     }
 
     async UpdateName(id: string, name: string): Promise<void> {
-        return await this.model.findByIdAndUpdate(id, {name: name})
+        return await this.model.findByIdAndUpdate(id, { name: name })
     }
 
     async UpdateEmail(id: string, email: string): Promise<void> {
-        if(await this.model.findOne({email: email}))    
+        if (await this.model.findOne({ email: email }))
             throw new Error("email já cadastrado")
-        return await this.model.findByIdAndUpdate(id, {email: email})
+        return await this.model.findByIdAndUpdate(id, { email: email })
     }
 }
 

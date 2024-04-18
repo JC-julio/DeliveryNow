@@ -27,7 +27,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
     }
     async GetOne(id: string): Promise<Output> {
         const getOneDeliveryMan = await this.model.findById(id)
-        if(!getOneDeliveryMan)
+        if (!getOneDeliveryMan)
             throw new Error("nenhum usuário encontrado")
         const ObjectReturn = {
             name: getOneDeliveryMan.name,
@@ -44,7 +44,7 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
     }
     async GetAll(): Promise<Output[]> {
         const deliveryMans = await this.model.find()
-        if(!deliveryMans)
+        if (!deliveryMans)
             throw new Error("nenhum usuário encontrado")
         return deliveryMans.map((element) => ({
             name: element.name,
@@ -53,52 +53,38 @@ export default class DeliveryManMongooseRepository implements DeliveryManReposit
             email: element.email,
             vehicle: element.vehicle,
             vehicleColor: element.vehicleColor,
-            plate: element.plate, 
+            plate: element.plate,
             credibility: element.credibility,
             URLPhotoProfile: element.URLPhotoProfile,
         }))
     }
-    async GetByEmail(email: string): Promise<Output> {
-        const getDeliveryMan = await this.model.findOne({email: email})
-        if(getDeliveryMan)
-        return {
-            name: getDeliveryMan.name,
-            id: getDeliveryMan.id,
-            CPF: getDeliveryMan.CPF,
-            email: getDeliveryMan.email,
-            vehicle: getDeliveryMan.vehicle,
-            vehicleColor: getDeliveryMan.vehicleColor,
-            plate: getDeliveryMan.plate,
-            credibility: getDeliveryMan.credibility,
-            URLPhotoProfile: getDeliveryMan.URLPhotoProfile,
-        }
-    }
+
     async delete(id: string): Promise<void> {
         return await this.model.findByIdAndDelete(id)
     }
     async GetbyCPF(cpf: string): Promise<Output> {
-        const getDeliveryMan = await this.model.findOne({CPF: cpf})
-        if(getDeliveryMan)
-        return {
-            name: getDeliveryMan.name,
-            CPF: getDeliveryMan.CPF,
-            email: getDeliveryMan.email,
-            vehicle: getDeliveryMan.vehicle,
-            vehicleColor: getDeliveryMan.vehicleColor,
-            plate: getDeliveryMan.plate,
-            id: getDeliveryMan.id,
-            credibility: getDeliveryMan.credibility,
-            URLPhotoProfile: getDeliveryMan.URLPhotoProfile,
-        }
+        const getDeliveryMan = await this.model.findOne({ CPF: cpf })
+        if (getDeliveryMan)
+            return {
+                name: getDeliveryMan.name,
+                CPF: getDeliveryMan.CPF,
+                email: getDeliveryMan.email,
+                vehicle: getDeliveryMan.vehicle,
+                vehicleColor: getDeliveryMan.vehicleColor,
+                plate: getDeliveryMan.plate,
+                id: getDeliveryMan.id,
+                credibility: getDeliveryMan.credibility,
+                URLPhotoProfile: getDeliveryMan.URLPhotoProfile,
+            }
     }
     async UpdateName(id: string, name: string): Promise<void> {
-        return await this.model.findByIdAndUpdate(id, {name: name})
+        return await this.model.findByIdAndUpdate(id, { name: name })
     }
 
     async UpdateEmail(id: string, email: string): Promise<void> {
-        if(await this.model.findOne({email: email}))    
+        if (await this.model.findOne({ email: email }))
             throw new Error("email já cadastrado")
-        return await this.model.findByIdAndUpdate(id, {email: email})
+        return await this.model.findByIdAndUpdate(id, { email: email })
     }
 }
 

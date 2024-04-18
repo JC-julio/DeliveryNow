@@ -3,11 +3,15 @@ import Store from "../../../domain/Store";
 import * as bcrypt from 'bcrypt';
 import EMAILValidator from "../../../domain/validators/EMAILValidator";
 import CNPJValidator from "../../../domain/validators/CNPJValidator";
+import ServiceRepositoryinterface from "../../repository/Service/ServiceRepositoryInterface";
 
 export default class CreateStore {
-    constructor(readonly repo: StoreRepositoryInterface) {}
+    constructor(
+        readonly repo: StoreRepositoryInterface,
+        readonly service: ServiceRepositoryinterface,
+        ) {}
     async execute(props: Input): Promise<Output> {
-        if(await this.repo.GetbyEmail(props.email))
+        if(await this.service.GetByEmail(props.email))
             throw new Error("Email já cadastrado")
         if(await this.repo.GetbyCNPJ(props.cnpj))
             throw new Error("CNPJ já cadastrado, entre em contato com o suporte para mais informações")

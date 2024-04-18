@@ -1,4 +1,5 @@
 import DeliveryManRepositoryInterface from "../../repository/DeliveryManRepositoryInterface";
+import ServiceRepositoryinterface from "../../repository/Service/ServiceRepositoryInterface";
 import DeliveryMan from "../../../domain/DeliveryMan";
 import CPFValidator from "../../../domain/validators/CPFValidator";
 import EMAILValidator from "../../../domain/validators/EMAILValidator";
@@ -6,13 +7,16 @@ import * as bcrypt from 'bcrypt';
 
 
 export default class CreateDeliveryMan {
-    constructor(readonly repo: DeliveryManRepositoryInterface) {}
+    constructor(
+        readonly repo: DeliveryManRepositoryInterface,
+        readonly service: ServiceRepositoryinterface,
+        ) {}
     async execute(props: Input): Promise<Output> {
         (new CPFValidator(props.CPF));
         (new EMAILValidator(props.email));
         if (await this.repo.GetbyCPF(props.CPF))
             throw new Error("CPF já cadastrado, entre em contato com o suporte para mais informações");
-        if (await this.repo.GetByEmail(props.email))
+        if (await this.service.GetByEmail(props.email))
             throw new Error("Email já cadastrado");
         const password = await this.hashPassword(props.password);
         const repoDeliveryMan = await this.repo.save({
