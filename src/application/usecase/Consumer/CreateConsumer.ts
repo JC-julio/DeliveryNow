@@ -5,11 +5,11 @@ import Consumer from "../../../domain/Consumer";
 import * as bcrypt from 'bcrypt';
 
 export default class CreateConsumer {
-    constructor (
+    constructor(
         readonly repo: ConsumerRepositoryInterface,
         readonly service: ServiceRepositoryinterface
-        ) {}
-    async execute(props: Input) {
+    ) { }
+    async execute(props: Input): Promise<Consumer> {
         (new EMAILValidator(props.email))
         if (await this.service.GetByEmail(props.email))
             throw new Error("CPF já cadastrado, entre em contato com o suporte para mais informações");
