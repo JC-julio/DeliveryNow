@@ -6,15 +6,15 @@ import * as bcrypt from 'bcrypt';
 
 
 export default class CreateDeliveryMan {
-    constructor(readonly repo: DeliveryManRepositoryInterface) { }
+    constructor(readonly repo: DeliveryManRepositoryInterface) {}
     async execute(props: Input): Promise<Output> {
+        (new CPFValidator(props.CPF));
+        (new EMAILValidator(props.email));
         if (await this.repo.GetbyCPF(props.CPF))
             throw new Error("CPF já cadastrado, entre em contato com o suporte para mais informações");
         if (await this.repo.GetByEmail(props.email))
             throw new Error("Email já cadastrado");
         const password = await this.hashPassword(props.password);
-        (new CPFValidator(props.CPF));
-        (new EMAILValidator(props.email));
         const repoDeliveryMan = await this.repo.save({
             ...props,
             password: password,
@@ -24,7 +24,8 @@ export default class CreateDeliveryMan {
         const deliveryMan = new DeliveryMan(
             repoDeliveryMan.name, repoDeliveryMan.CPF, repoDeliveryMan.email,
             repoDeliveryMan.vehicle, repoDeliveryMan.vehicleColor,
-            repoDeliveryMan.plate, repoDeliveryMan.id, repoDeliveryMan.credibility, repoDeliveryMan.URLPhotoProfile);
+            repoDeliveryMan.plate, repoDeliveryMan.id, repoDeliveryMan.credibility,
+            repoDeliveryMan.URLPhotoProfile);
         return deliveryMan;
     }
 
